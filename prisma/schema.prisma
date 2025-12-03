@@ -1,0 +1,82 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+
+model User {
+  id         Int       @id @default(autoincrement())
+  email      String    @unique
+  name       String?
+  password   String
+  role       Role      @default(STUDENT)
+  enrolledCourses CourseEnrollment[]
+  authoredCourses Course[] @relation("AuthorCourses")
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @default(now()) @updatedAt
+}
+
+enum Role {
+  STUDENT
+  AUTHOR
+  ADMIN
+}
+
+model Course {
+  id         Int       @id @default(autoincrement())
+  title      String
+  description String?
+  author     User      @relation("AuthorCourses", fields: [authorId], references: [id])
+  authorId   Int
+  chapters   Chapter[]
+  enrollments CourseEnrollment[]
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+
+model Chapter {
+  id         Int       @id @default(autoincrement())
+  title      String
+  course     Course    @relation(fields: [courseId], references: [id])
+  courseId   Int
+  videos     Video[]
+  order      Int
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+model Video {
+  id         Int       @id @default(autoincrement())
+  title      String
+  url        String
+  chapter    Chapter   @relation(fields: [chapterId], references: [id])
+  chapterId  Int
+  duration   Int?
+  order      Int
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+model CourseEnrollment {
+  id         Int       @id @default(autoincrement())
+  user       User      @relation(fields: [userId], references: [id])
+  userId     Int
+  course     Course    @relation(fields: [courseId], references: [id])
+  courseId   Int
+  enrolledAt DateTime  @default(now())
+
+  @@unique([userId, courseId])
+}
+
+
