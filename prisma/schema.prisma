@@ -32,6 +32,7 @@ enum Role {
   ADMIN
 }
 
+
 model Course {
   id         Int       @id @default(autoincrement())
   title      String
@@ -40,10 +41,16 @@ model Course {
   authorId   Int
   chapters   Chapter[]
   enrollments CourseEnrollment[]
+  status  CourseStatus @default(DRAFT)
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
 }
 
+enum CourseStatus {
+  DRAFT
+  PUBLISHED
+  EXPIRE
+}
 
 model Chapter {
   id         Int       @id @default(autoincrement())

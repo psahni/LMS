@@ -5,7 +5,8 @@ async function main() {
     data: {
       email: 'test@test.com',
       name: 'Test User',
-      role: 'admin',
+      password: 'password123',
+      role: 'ADMIN',
     },
   })
   console.log('User created')
