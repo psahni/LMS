@@ -31,7 +31,7 @@ import {
 import { createChapter, deleteChapter, updateChapter } from "@/app/actions/course-actions";
 import { toast } from "sonner";
 import { VideosList } from "./videos-list";
-import { Chapter, Video as VideoType } from "@/app/generated/prisma/client";
+import { Chapter, Video as VideoType } from "@prisma/client";
 
 interface ChapterWithVideos extends Chapter {
   videos: VideoType[];

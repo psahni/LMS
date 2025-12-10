@@ -36,7 +36,7 @@ import {
 } from "lucide-react";
 import { deleteCourse, publishCourse, unpublishCourse } from "@/app/actions/course-actions";
 import { toast } from "sonner";
-import { Course, Chapter, Video as VideoType } from "@/app/generated/prisma/client";
+import { Course, Chapter, Video as VideoType } from "@prisma/client";
 
 interface CourseWithDetails extends Course {
   chapters: (Chapter & { videos: VideoType[] })[];

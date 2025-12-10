@@ -11,7 +11,7 @@ import { Label } from "@/components/ui/label";
 import { updateCourse } from "@/app/actions/course-actions";
 import { toast } from "sonner";
 import { BookOpen, Loader2, X, ImageIcon } from "lucide-react";
-import { Course } from "@/app/generated/prisma/client";
+import { Course } from "@prisma/client";
 
 interface EditCourseFormProps {
   course: Course;

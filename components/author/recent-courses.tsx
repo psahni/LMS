@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, BookOpen, Plus } from "lucide-react";
-import { Course, Chapter, Video } from "@/app/generated/prisma/client";
+import { Course, Chapter, Video } from "@prisma/client";
 
 interface CourseWithDetails extends Course {
   chapters: (Chapter & { videos: Video[] })[];

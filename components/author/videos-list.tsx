@@ -25,7 +25,7 @@ import {
 } from "lucide-react";
 import { createVideo, deleteVideo, updateVideo, reorderVideos } from "@/app/actions/course-actions";
 import { toast } from "sonner";
-import { Video } from "@/app/generated/prisma/client";
+import { Video } from "@prisma/client";
 
 interface VideosListProps {
   chapterId: number;
