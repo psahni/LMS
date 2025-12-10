@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -67,8 +68,17 @@ export const RecentCourses = ({ courses }: RecentCoursesProps) => {
                 className="flex items-center justify-between p-4 rounded-lg border border-border/40 hover:border-border/80 hover:bg-muted/50 transition-all"
               >
                 <div className="flex items-center gap-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-violet-500/10 to-indigo-500/10">
-                    <BookOpen className="h-6 w-6 text-violet-600" />
+                  <div className="relative flex h-12 w-16 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-violet-500/10 to-indigo-500/10 overflow-hidden">
+                    {course.thumbnail ? (
+                      <Image
+                        src={course.thumbnail}
+                        alt={course.title}
+                        fill
+                        className="object-cover"
+                      />
+                    ) : (
+                      <BookOpen className="h-6 w-6 text-violet-600" />
+                    )}
                   </div>
                   <div>
                     <h4 className="font-medium">{course.title}</h4>

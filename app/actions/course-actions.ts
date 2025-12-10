@@ -2,7 +2,6 @@
 
 import { prisma } from "@/app/lib/prisma";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import { getCurrentUser } from "./auth-actions";
 
 // Helper to get author ID with authentication check
@@ -20,6 +19,7 @@ const getAuthorId = async (): Promise<number> => {
 export interface CreateCourseInput {
   title: string;
   description?: string;
+  thumbnail?: string;
 }
 
 export interface CreateChapterInput {
@@ -50,6 +50,7 @@ export const createCourse = async (data: CreateCourseInput) => {
       data: {
         title: data.title,
         description: data.description || null,
+        thumbnail: data.thumbnail || null,
         authorId,
         status: "DRAFT",
       },
@@ -145,6 +146,7 @@ export const updateCourse = async (courseId: number, data: Partial<CreateCourseI
       data: {
         title: data.title,
         description: data.description,
+        thumbnail: data.thumbnail,
       },
     });
     

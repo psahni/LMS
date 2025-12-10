@@ -37,6 +37,7 @@ model Course {
   id         Int       @id @default(autoincrement())
   title      String
   description String?
+  thumbnail  String?
   author     User      @relation("AuthorCourses", fields: [authorId], references: [id])
   authorId   Int
   chapters   Chapter[]

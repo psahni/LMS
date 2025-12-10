@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -160,11 +161,26 @@ export const CoursesList = ({ courses }: CoursesListProps) => {
               key={course.id}
               className="group relative overflow-hidden border-border/40 hover:border-border/80 hover:shadow-lg transition-all duration-300"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-violet-500/5 to-indigo-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-              <CardContent className="p-6">
+              {/* Thumbnail */}
+              <div className="relative h-32 w-full overflow-hidden bg-gradient-to-br from-violet-500/10 to-indigo-500/10">
+                {course.thumbnail ? (
+                  <Image
+                    src={course.thumbnail}
+                    alt={course.title}
+                    fill
+                    className="object-cover transition-transform group-hover:scale-105"
+                  />
+                ) : (
+                  <div className="flex h-full w-full items-center justify-center">
+                    <BookOpen className="h-12 w-12 text-violet-400/50" />
+                  </div>
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              </div>
+              <CardContent className="p-4">
                 <div className="flex items-start justify-between">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-indigo-600">
-                    <BookOpen className="h-6 w-6 text-white" />
+                  <div className="flex items-center gap-2">
+                    {getStatusBadge(course.status)}
                   </div>
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -210,10 +226,7 @@ export const CoursesList = ({ courses }: CoursesListProps) => {
                   </DropdownMenu>
                 </div>
                 
-                <div className="mt-4">
-                  <div className="flex items-center gap-2 mb-2">
-                    {getStatusBadge(course.status)}
-                  </div>
+                <div className="mt-3">
                   <h3 className="font-semibold text-lg line-clamp-1">{course.title}</h3>
                   <p className="text-sm text-muted-foreground mt-1 line-clamp-2">
                     {course.description || "No description provided"}
